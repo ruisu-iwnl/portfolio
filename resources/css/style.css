@@ -47,25 +47,25 @@ body {
   display: flex;
   align-items: center;
   padding-top: 4rem;
-  padding-bottom: 8.5rem;
+  padding-bottom: 10rem;
 }
 
 .hero-kicker {
   text-transform: uppercase;
   letter-spacing: 0.18em;
-  font-size: 0.75rem;
+  font-size: 0.98rem;
   color: rgba(148, 163, 184, 0.9);
   margin-bottom: 0.75rem;
 }
 
 .hero-title {
-  font-size: clamp(2.5rem, 6vw, 3.5rem);
+  font-size: clamp(3.1rem, 7.4vw, 4.4rem);
   font-weight: 600;
   margin-bottom: 0.5rem;
 }
 
 .hero-subtitle {
-  font-size: 1.05rem;
+  font-size: 1.25rem;
   color: rgba(229, 231, 235, 0.9);
   margin-bottom: 1.75rem;
   font-family: "Roboto Mono", ui-monospace, SFMono-Regular, Menlo, Monaco,
@@ -102,8 +102,8 @@ body {
 
 .hero-actions .btn-lg {
   border-radius: 999px;
-  padding-inline: 1.8rem;
-  font-size: 0.9rem;
+  padding-inline: 2.2rem;
+  font-size: 1.02rem;
 }
 
 .hero-socials {
@@ -205,7 +205,7 @@ body {
   padding: 1.3rem 1.2rem 1.4rem;
   font-family: "Roboto Mono", ui-monospace, SFMono-Regular, Menlo, Monaco,
     Consolas, "Liberation Mono", "Courier New", monospace;
-  font-size: 0.82rem;
+  font-size: 0.95rem;
   line-height: 1.6;
   color: #e5e7eb;
   white-space: pre-wrap;
@@ -303,6 +303,7 @@ body {
   flex-direction: column;
   gap: 2.25rem;
   align-items: flex-start;
+  position: relative;
 }
 
 .about-stack-label {
@@ -343,6 +344,28 @@ body {
   letter-spacing: 0.01em;
 }
 
+.about-art {
+  position: absolute;
+  top: -10px;
+  right: -30px;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  background: radial-gradient(
+      circle at 30% 30%,
+      rgba(147, 197, 253, 0.18),
+      transparent 55%
+    ),
+    radial-gradient(
+      circle at 70% 60%,
+      rgba(148, 163, 184, 0.18),
+      transparent 60%
+    );
+  opacity: 0.22;
+  filter: blur(6px);
+  pointer-events: none;
+}
+
 @media (max-width: 992px) {
   .about-grid {
     grid-template-columns: minmax(0, 1fr);
@@ -351,6 +374,10 @@ body {
 
   .about-stack-logos {
     justify-content: center;
+  }
+
+  .about-art {
+    display: none;
   }
 }
 
