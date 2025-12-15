@@ -47,7 +47,8 @@ body {
   display: flex;
   align-items: center;
   padding-top: 4rem;
-  padding-bottom: 10rem;
+  padding-bottom: 13rem;
+  padding-top: 10rem;
 }
 
 .hero-kicker {
@@ -97,7 +98,7 @@ body {
   display: flex;
   gap: 0.75rem;
   flex-wrap: wrap;
-  justify-content: flex-start;
+  justify-content: center;
 }
 
 .hero-actions .btn-lg {
@@ -137,10 +138,12 @@ body {
   grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
   gap: 1.75rem;
   align-items: center;
+  justify-items: center;
 }
 
 .hero-copy {
   max-width: 32rem;
+  margin-left: auto;
   margin-right: auto;
   text-align: left;
   opacity: 0;
@@ -150,7 +153,8 @@ body {
 
 .hero-terminal-wrapper {
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
+  padding-left: 28px;
   opacity: 0;
   transform: translateY(16px);
   animation: hero-fade-up 0.6s ease-out forwards;
@@ -230,6 +234,7 @@ body {
 
   .hero-terminal-wrapper {
     justify-content: flex-start;
+    padding-left: 0;
   }
 
   .hero-inner {
