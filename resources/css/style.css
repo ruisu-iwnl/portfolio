@@ -40,15 +40,16 @@ body {
 .hero-section {
   background-color: var(--bg-hero);
   color: #e5e7eb;
+  position: relative;
+  overflow: hidden;
 }
 
 .hero-inner {
   min-height: 70vh;
   display: flex;
   align-items: center;
-  padding-top: 4rem;
-  padding-bottom: 13rem;
-  padding-top: 10rem;
+  padding-top: 6rem;
+  padding-bottom: 10rem;
 }
 
 .hero-kicker {
@@ -216,6 +217,97 @@ body {
   word-break: break-word;
 }
 
+.hero-runner {
+  position: absolute;
+  left: 50%;
+  bottom: 1.2rem;
+  transform: translateX(-50%);
+  width: min(880px, 96vw);
+  height: 90px;
+  opacity: 0.8;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.hero-runner-track {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 18px;
+  height: 2px;
+  background: repeating-linear-gradient(
+    to right,
+    rgba(229, 231, 235, 0.4) 0,
+    rgba(229, 231, 235, 0.4) 24px,
+    rgba(229, 231, 235, 0.12) 24px,
+    rgba(229, 231, 235, 0.12) 48px
+  );
+  animation: hero-ground-scroll 1.9s linear infinite;
+}
+
+.hero-runner-trees {
+  position: absolute;
+  inset: 0;
+  overflow: visible;
+}
+
+.hero-runner-tree {
+  position: absolute;
+  bottom: 18px;
+  left: 100%;
+  width: calc(14px * var(--scale, 1));
+  height: calc(36px * var(--scale, 1));
+  border-radius: 999px 999px 4px 4px;
+  background: rgba(147, 197, 253, 0.45);
+  box-shadow: 0 0 0 2px rgba(15, 23, 42, 0.8);
+  opacity: 0.9;
+  animation-name: hero-tree-move;
+  animation-duration: 8.8s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-delay: var(--delay, 0s);
+  will-change: transform;
+}
+
+.hero-runner-char {
+  position: absolute;
+  bottom: 22px;
+  left: 18%;
+  width: 18px;
+  height: 18px;
+  border-radius: 6px;
+  background: rgba(147, 197, 253, 0.5);
+  box-shadow: 0 0 0 2px rgba(147, 197, 253, 0.25);
+  animation: hero-runner-hop 0.9s ease-in-out infinite;
+}
+
+@keyframes hero-ground-scroll {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: -80px 0;
+  }
+}
+
+@keyframes hero-tree-move {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-200vw);
+  }
+}
+
+@keyframes hero-runner-hop {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
 @keyframes hero-fade-up {
   from {
     opacity: 0;
@@ -235,6 +327,7 @@ body {
   .hero-terminal-wrapper {
     justify-content: flex-start;
     padding-left: 0;
+    padding-bottom: 2.5rem;
   }
 
   .hero-inner {
