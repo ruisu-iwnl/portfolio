@@ -162,14 +162,66 @@ function initAboutTyping() {
   step();
 }
 
+function initAboutCarousel() {
+  const shell = document.querySelector('[data-carousel="about"]');
+  if (!shell) return;
+
+  const imgEl = shell.querySelector(".about-gallery-img");
+  const counterEl = shell.querySelector(".about-gallery-counter");
+
+  if (!imgEl || !counterEl) return;
+
+  let images;
+  try {
+    const json = shell.getAttribute("data-images");
+    images = json ? JSON.parse(json) : [];
+  } catch {
+    images = [];
+  }
+
+  if (!Array.isArray(images) || images.length === 0) {
+    images = [imgEl.getAttribute("src")].filter(Boolean);
+  }
+
+  let index = 0;
+
+  function render() {
+    const total = images.length;
+    const src = images[index];
+    const show = () => {
+      imgEl.src = src;
+      imgEl.classList.add("is-active");
+      counterEl.textContent = `${index + 1} / ${total}`;
+    };
+
+    imgEl.classList.remove("is-active");
+    window.setTimeout(show, 40);
+  }
+
+  function go(delta) {
+    const total = images.length;
+    index = (index + delta + total) % total;
+    render();
+  }
+
+  const intervalMs = 3500;
+  const autoplay = window.setInterval(() => go(1), intervalMs);
+  shell.addEventListener("pointerenter", () => window.clearInterval(autoplay), {
+    once: true,
+  });
+
+  render();
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   loadTemplate("navbar-container", "resources/templates/navbar.html");
   loadTemplate("hero-container", "resources/templates/hero.html").then(
     initHeroTyping
   );
-  loadTemplate("about-container", "resources/templates/about.html").then(
-    initAboutTyping
-  );
+  loadTemplate("about-container", "resources/templates/about.html").then(() => {
+    initAboutTyping();
+    initAboutCarousel();
+  });
   loadTemplate("projects-container", "resources/templates/projects.html").then(
     initProjectsCarousel
   );

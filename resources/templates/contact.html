@@ -10,15 +10,25 @@
       method="POST"
       enctype="text/plain"
     >
-      <label class="contact-label" for="contact-subject">Subject</label>
-      <textarea
-        id="contact-subject"
-        name="subject"
+      <label class="contact-label" for="contact-email">Email</label>
+      <input
+        id="contact-email"
+        name="email"
+        type="email"
         class="contact-input"
-        rows="2"
-        placeholder="Project idea, collaboration, or question"
+        placeholder="your.email@example.com"
         required
-      ></textarea>
+      />
+
+      <label class="contact-label" for="contact-name">Full Name</label>
+      <input
+        id="contact-name"
+        name="name"
+        type="text"
+        class="contact-input"
+        placeholder="Your full name"
+        required
+      />
 
       <label class="contact-label" for="contact-message">Message</label>
       <textarea
