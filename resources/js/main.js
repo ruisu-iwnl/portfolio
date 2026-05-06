@@ -91,47 +91,24 @@ function initProjectsCarousel() {
   const nextBtn = shell.querySelector(".projects-nav-next");
 
   if (!track || !prevBtn || !nextBtn) return;
-
-  const scrollStep = () => {
-    const card = track.querySelector(".project-card");
-    const base = card ? card.getBoundingClientRect().width + 16 : 320;
-    return Math.min(base, track.clientWidth * 0.85);
-  };
-
+ 
   function updateDisabled() {
     prevBtn.disabled = track.scrollLeft <= 4;
     const maxScroll = track.scrollWidth - track.clientWidth;
     nextBtn.disabled = track.scrollLeft >= maxScroll - 4;
   }
 
-  const animateScroll = (delta, duration = 450) => {
-    const start = track.scrollLeft;
-    const maxScroll = track.scrollWidth - track.clientWidth;
-    const target = Math.min(Math.max(0, start + delta), maxScroll);
-    const startTime = performance.now();
-
-    function step(now) {
-      const t = Math.min(1, (now - startTime) / duration);
-      // ease-out cubic
-      const eased = 1 - Math.pow(1 - t, 3);
-      track.scrollLeft = start + (target - start) * eased;
-      if (t < 1) {
-        requestAnimationFrame(step);
-      } else {
-        updateDisabled();
-      }
-    }
-
-    requestAnimationFrame(step);
+  const scrollByAmount = (direction) => {
+    const card = track.querySelector(".project-card");
+    const step = card ? card.getBoundingClientRect().width + 16 : 320;
+    track.scrollBy({
+      left: direction * step,
+      behavior: "smooth",
+    });
   };
 
-  prevBtn.addEventListener("click", () => {
-    animateScroll(-scrollStep());
-  });
-
-  nextBtn.addEventListener("click", () => {
-    animateScroll(scrollStep());
-  });
+  prevBtn.addEventListener("click", () => scrollByAmount(-1));
+  nextBtn.addEventListener("click", () => scrollByAmount(1));
 
   track.addEventListener("scroll", updateDisabled, { passive: true });
   updateDisabled();
