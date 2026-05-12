@@ -2,44 +2,75 @@
   <div class="hero-inner container">
     <div class="hero-grid">
       <div class="hero-copy">
-        <p class="hero-kicker">Portfolio of</p>
-        <h1 class="hero-title">Luis Pelaez</h1>
-        <p
-          class="hero-subtitle"
-          data-text="Full Stack Web Developer"
-        >
-          <span class="hero-typing-text">Full Stack Web Developer</span
-          ><span class="hero-caret">|</span>
+        <p class="hero-kicker reveal">Portfolio of</p>
+        <h1 class="hero-title reveal">Luis Pelaez</h1>
+        <p class="hero-subtitle reveal" data-text="Full Stack Web Developer">
+          <span class="hero-typing-text">Full Stack Web Developer</span><span class="hero-caret">|</span>
         </p>
-        <div class="hero-socials" aria-label="Social links">
-          <a class="hero-social-btn" href="https://github.com/ruisu-iwnl" aria-label="GitHub" target="_blank" rel="noopener">
+        <div class="hero-socials reveal" aria-label="Social links">
+          <a class="hero-social-btn" href="https://github.com/ruisu-iwnl" aria-label="GitHub" target="_blank"
+            rel="noopener">
             <i class="bi bi-github"></i>
           </a>
-          <a class="hero-social-btn" href="https://www.linkedin.com/in/ruisuiwnl/" aria-label="LinkedIn" target="_blank" rel="noopener">
+          <a class="hero-social-btn" href="https://www.linkedin.com/in/ruisuiwnl/" aria-label="LinkedIn" target="_blank"
+            rel="noopener">
             <i class="bi bi-linkedin"></i>
           </a>
-          <a class="hero-social-btn" href="https://wa.me/639764274590" aria-label="WhatsApp" target="_blank" rel="noopener">
+          <a class="hero-social-btn" href="https://wa.me/639764274590" aria-label="WhatsApp" target="_blank"
+            rel="noopener">
             <i class="bi bi-whatsapp"></i>
           </a>
-          <a class="hero-social-btn" href="mailto:e.luis.pelaez@gmail.com" aria-label="Email">
+          <button class="hero-social-btn btn-copy-email" data-email="e.luis.pelaez@gmail.com" aria-label="Copy Email">
             <i class="bi bi-envelope"></i>
-          </a>
+          </button>
         </div>
       </div>
-      <div class="hero-terminal-wrapper">
-        <div class="hero-terminal">
-          <div class="hero-terminal-header">
-            <span class="dot dot-red"></span>
-            <span class="dot dot-amber"></span>
-            <span class="dot dot-green"></span>
-            <span class="hero-terminal-title">about_me.php</span>
+      <div class="hero-stack-wrapper reveal">
+        <div class="project-stack" id="hero-stack">
+          <!-- Card 3: LLM Integration (Front) -->
+          <div class="stack-card card-ui">
+            <div class="card-header-mini">
+              <i class="bi bi-robot"></i>
+              <span class="node-title">LLM Integration</span>
+            </div>
+            <div class="card-content-mini">
+              <div class="ai-thought">Prompt: "Optimize SQL Query"</div>
+              <div class="ai-action">
+                <span class="t-ok">Response:</span> <code>EXPLAIN ANALYZE...</code>
+              </div>
+              <div class="ai-result">OpenAI / Gemini • 1.2k Tokens</div>
+            </div>
+            <div class="card-label">AI Systems</div>
           </div>
-          <pre class="hero-terminal-body"><code>$aboutMe = new Developer([
-    'name' => 'Luis Pelaez',
-    'role' => 'Full Stack Web Developer',
-    'stack' => ['PHP', 'JavaScript', 'MySQL'],
-    'focus' => ['clean UI', 'optimization', 'automation'],
-]);</code></pre>
+
+          <!-- Card 2: CI/CD Pipeline (Middle) -->
+          <div class="stack-card card-backend">
+            <div class="card-header-mini">
+              <i class="bi bi-github"></i>
+              <span class="node-title">CI/CD Pipeline</span>
+            </div>
+            <div class="card-content-mini">
+              <div class="task-line"><i class="bi bi-check-circle-fill t-ok"></i> Build & Test</div>
+              <div class="task-line"><i class="bi bi-check-circle-fill t-ok"></i> Security Audit</div>
+              <div class="task-line"><i class="bi bi-arrow-repeat t-wait"></i> Deploy to Cloud</div>
+            </div>
+            <div class="card-label">Cafe24 / AWS</div>
+          </div>
+
+          <!-- Card 1: Full Stack (Back) -->
+          <div class="stack-card card-ai">
+            <div class="card-header-mini">
+              <i class="bi bi-layers-half"></i>
+              <span class="node-title">Full Stack Dev</span>
+            </div>
+            <div class="card-content-mini">
+              <div class="fs-preview">
+                <div class="fs-ui">UI: <span>Submit</span></div>
+                <div class="fs-api">API: <code>{ "status": 200 }</code></div>
+              </div>
+            </div>
+            <div class="card-label">PHP 8 / JS / SQL</div>
+          </div>
         </div>
       </div>
     </div>
@@ -59,4 +90,3 @@
     </div>
   </div>
 </section>
-

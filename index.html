@@ -85,19 +85,45 @@
     <link rel="stylesheet" href="resources/css/style.css" />
   </head>
   <body>
+    <div id="scroll-progress"></div>
     <div id="navbar-container"></div>
     <main>
       <div id="hero-container"></div>
+      <div id="expertise-container"></div>
       <div id="projects-container"></div>
       <div id="about-container"></div>
       <div id="contact-container"></div>
     </main>
     <div id="footer-container"></div>
+    <div id="toast-container">
+      <i class="bi bi-check-circle-fill"></i>
+      <span id="toast-message">Copied to clipboard!</span>
+    </div>
+    <button id="back-to-top" title="Back to Top">
+      <i class="bi bi-arrow-up"></i>
+    </button>
+    <!-- Technical Insight Overlay -->
+    <div id="technical-overlay" class="technical-overlay">
+      <div class="overlay-content">
+        <button class="overlay-close"><i class="bi bi-x-lg"></i></button>
+        <div class="overlay-header">
+          <i class="bi bi-cpu"></i>
+          <span>Technical Insight</span>
+        </div>
+        <div class="overlay-body">
+          <h4 id="overlay-title">Section Architecture</h4>
+          <pre><code id="overlay-code"></code></pre>
+          <div id="overlay-description"></div>
+        </div>
+      </div>
+    </div>
+
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
       crossorigin="anonymous"
     ></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="resources/js/main.js"></script>
   </body>
 </html>

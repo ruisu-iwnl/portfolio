@@ -1,122 +1,181 @@
 <section id="projects" class="section-padding section-muted">
   <div class="container">
-    <h2 class="section-title">Projects</h2>
-    <p class="section-text mb-4">
-      A few recent builds, kept clean and focused.
-    </p>
-
-    <div class="projects-shell" data-carousel="projects">
-      <button class="projects-nav projects-nav-prev" type="button" aria-label="Previous project">
-        <i class="bi bi-chevron-left"></i>
-      </button>
-      <div class="projects-track" tabindex="0">
-        <article class="project-card">
-          <p class="project-name">Smart Lease Management</p>
-          <p class="project-desc">
-            Auto-expiring leases, monthly rental reports, real-time payment updates.
-          </p>
-          <a class="project-link" href="https://github.com/ruisu-iwnl/ezrent" target="_blank" rel="noopener">
-            View repo
-          </a>
-        </article>
-
-        <article class="project-card">
-          <p class="project-name">QR Vehicle Access</p>
-          <p class="project-desc">
-            Flask app for vehicle identification using QR codes.
-          </p>
-          <a class="project-link" href="https://github.com/ruisu-iwnl/qrcode-vehicle-access-control-system" target="_blank" rel="noopener">
-            View repo
-          </a>
-        </article>
-
-        <article class="project-card">
-          <p class="project-name">RFID Vehicle Access</p>
-          <p class="project-desc">
-            Flask variant using physical RFID cards for vehicle access.
-          </p>
-          <a class="project-link" href="https://github.com/ruisu-iwnl/rfid-vehicle-access-control-system" target="_blank" rel="noopener">
-            View repo
-          </a>
-        </article>
-
-        <article class="project-card">
-          <p class="project-name">Email Sender</p>
-          <p class="project-desc">
-            Bulk email automation for recruiting and group messaging.
-          </p>
-          <a class="project-link" href="https://github.com/ruisu-iwnl/email-sender" target="_blank" rel="noopener">
-            View repo
-          </a>
-        </article>
-
-        <article class="project-card">
-          <p class="project-name">GRBLX Marketing Site</p>
-          <p class="project-desc">
-            Marketing site for GRBLX games with a live deploy.
-          </p>
-          <div class="project-links-inline">
-            <a class="project-link" href="https://github.com/ruisu-iwnl/grblx" target="_blank" rel="noopener">
-              Repo
-            </a>
-            <span class="project-link-sep">•</span>
-            <a class="project-link" href="https://ruisu-iwnl.github.io/grblx/" target="_blank" rel="noopener">
-              Live
-            </a>
-          </div>
-        </article>
-
-        <article class="project-card">
-          <p class="project-name">PowerEnglish Landing</p>
-          <p class="project-desc">
-            Mobile marketing page for PowerEnglish, built for speed.
-          </p>
-          <div class="project-links-inline">
-            <a class="project-link" href="https://github.com/ruisu-iwnl/mobile-marketing-landing-page-for-powerenglish" target="_blank" rel="noopener">
-              Repo
-            </a>
-            <span class="project-link-sep">•</span>
-            <a class="project-link" href="https://ruisu-iwnl.github.io/mobile-marketing-landing-page-for-powerenglish/" target="_blank" rel="noopener">
-              Live
-            </a>
-          </div>
-        </article>
-
-        <article class="project-card">
-          <p class="project-name">POS Simple</p>
-          <p class="project-desc">
-            Basic POS with reporting and receipt generation.
-          </p>
-          <div class="project-links-inline">
-            <a class="project-link" href="https://github.com/ruisu-iwnl/pos-simple-demo" target="_blank" rel="noopener">
-              Repo
-            </a>
-            <span class="project-link-sep">•</span>
-            <a class="project-link" href="https://ruisu-iwnl.github.io/pos-simple-demo/" target="_blank" rel="noopener">
-              Live
-            </a>
-          </div>
-        </article>
-
-        <article class="project-card">
-          <p class="project-name">English Speaking Marketing</p>
-          <p class="project-desc">
-            Marketing site for an ESL Company.
-          </p>
-          <div class="project-links-inline">
-            <a class="project-link" href="https://github.com/ruisu-iwnl/general-marketing-pc" target="_blank" rel="noopener">
-              Repo
-            </a>
-            <span class="project-link-sep">•</span>
-            <a class="project-link" href="https://ruisu-iwnl.github.io/general-marketing-pc/" target="_blank" rel="noopener">
-              Live
-            </a>
-          </div>
-        </article>
+    <div class="row mb-5 align-items-end">
+      <div class="col-lg-7">
+        <h2 class="section-title">Portfolio</h2>
+        <h3 class="display-4 fw-bold mb-0">Project Case Studies</h3>
       </div>
-      <button class="projects-nav projects-nav-next" type="button" aria-label="Next project">
-        <i class="bi bi-chevron-right"></i>
-      </button>
+      <div class="col-lg-5 text-lg-end">
+        <div class="project-filters mt-4 mt-lg-0">
+          <button class="filter-btn active" data-filter="all">All</button>
+          <button class="filter-btn" data-filter="fullstack">Full Stack</button>
+          <button class="filter-btn" data-filter="automation">Automation</button>
+          <button class="filter-btn" data-filter="marketing">Marketing</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="projects-bento">
+      <!-- Project 01: Smart Lease (Featured) -->
+      <article class="project-card-v3 featured reveal" data-category="fullstack">
+        <div class="project-top-v3">
+          <span class="project-label-v3">Full Stack</span>
+        </div>
+        <h4 class="project-name-v3">Smart Lease Management</h4>
+        <p class="project-desc-v3">
+          A comprehensive platform featuring auto-expiring leases, automated monthly rental reports, and real-time payment synchronization.
+        </p>
+        <div class="project-bottom-v3">
+          <div class="project-tech-stack-v3">
+            <span class="tech-pill-v3">PHP</span>
+            <span class="tech-pill-v3">MySQL</span>
+            <span class="tech-pill-v3">Bootstrap</span>
+          </div>
+          <a class="project-btn-v3" href="https://github.com/ruisu-iwnl/ezrent" target="_blank" rel="noopener" aria-label="View Project">
+            <i class="bi bi-arrow-up-right"></i>
+          </a>
+        </div>
+      </article>
+
+      <!-- Project 02: QR Vehicle -->
+      <article class="project-card-v3 reveal" data-category="fullstack">
+        <div class="project-top-v3">
+          <span class="project-label-v3">Full Stack</span>
+        </div>
+        <h4 class="project-name-v3">QR Vehicle Access</h4>
+        <p class="project-desc-v3">
+          Flask-powered security application utilizing encrypted QR codes for instant vehicle identification and access control.
+        </p>
+        <div class="project-bottom-v3">
+          <div class="project-tech-stack-v3">
+            <span class="tech-pill-v3">Python</span>
+            <span class="tech-pill-v3">Flask</span>
+            <span class="tech-pill-v3">Security</span>
+          </div>
+          <a class="project-btn-v3" href="https://github.com/ruisu-iwnl/qrcode-vehicle-access-control-system" target="_blank" rel="noopener" aria-label="View Project">
+            <i class="bi bi-arrow-up-right"></i>
+          </a>
+        </div>
+      </article>
+
+      <!-- Project 03: RFID Access -->
+      <article class="project-card-v3 reveal" data-category="fullstack">
+        <div class="project-top-v3">
+          <span class="project-label-v3">Full Stack</span>
+        </div>
+        <h4 class="project-name-v3">RFID Vehicle Entry</h4>
+        <p class="project-desc-v3">
+          Hardware-software bridge using RFID card readers for automated gate control and entry logging.
+        </p>
+        <div class="project-bottom-v3">
+          <div class="project-tech-stack-v3">
+            <span class="tech-pill-v3">Python</span>
+            <span class="tech-pill-v3">Hardware</span>
+            <span class="tech-pill-v3">IoT</span>
+          </div>
+          <a class="project-btn-v3" href="https://github.com/ruisu-iwnl/rfid-vehicle-access-control-system" target="_blank" rel="noopener" aria-label="View Project">
+            <i class="bi bi-arrow-up-right"></i>
+          </a>
+        </div>
+      </article>
+
+      <!-- Project 04: POS Simple -->
+      <article class="project-card-v3 reveal" data-category="fullstack">
+        <div class="project-top-v3">
+          <span class="project-label-v3">Business</span>
+        </div>
+        <h4 class="project-name-v3">Simple POS Demo</h4>
+        <p class="project-desc-v3">
+          Basic POS with reporting and receipt generation, built for small business inventory management.
+        </p>
+        <div class="project-bottom-v3">
+          <div class="project-tech-stack-v3">
+            <span class="tech-pill-v3">PHP</span>
+            <span class="tech-pill-v3">Reporting</span>
+          </div>
+          <a class="project-btn-v3" href="https://ruisu-iwnl.github.io/pos-simple-demo/" target="_blank" rel="noopener" aria-label="View Project">
+            <i class="bi bi-arrow-up-right"></i>
+          </a>
+        </div>
+      </article>
+
+      <!-- Project 05: Email Automation -->
+      <article class="project-card-v3 reveal" data-category="automation">
+        <div class="project-top-v3">
+          <span class="project-label-v3">Automation</span>
+        </div>
+        <h4 class="project-name-v3">Email Sender</h4>
+        <p class="project-desc-v3">
+          Bulk email automation for recruiting and large-scale group messaging tasks.
+        </p>
+        <div class="project-bottom-v3">
+          <div class="project-tech-stack-v3">
+            <span class="tech-pill-v3">Python</span>
+            <span class="tech-pill-v3">SMTP</span>
+          </div>
+          <a class="project-btn-v3" href="https://github.com/ruisu-iwnl/email-sender" target="_blank" rel="noopener" aria-label="View Project">
+            <i class="bi bi-arrow-up-right"></i>
+          </a>
+        </div>
+      </article>
+
+      <!-- Project 06: GRBLX -->
+      <article class="project-card-v3 reveal" data-category="marketing">
+        <div class="project-top-v3">
+          <span class="project-label-v3">Marketing</span>
+        </div>
+        <h4 class="project-name-v3">GRBLX Landing</h4>
+        <p class="project-desc-v3">
+          High-conversion marketing site for the GRBLX game development studio.
+        </p>
+        <div class="project-bottom-v3">
+          <div class="project-tech-stack-v3">
+            <span class="tech-pill-v3">Web</span>
+            <span class="tech-pill-v3">SEO</span>
+          </div>
+          <a class="project-btn-v3" href="https://ruisu-iwnl.github.io/grblx/" target="_blank" rel="noopener" aria-label="View Project">
+            <i class="bi bi-arrow-up-right"></i>
+          </a>
+        </div>
+      </article>
+
+      <!-- Project 07: PowerEnglish -->
+      <article class="project-card-v3 reveal" data-category="marketing">
+        <div class="project-top-v3">
+          <span class="project-label-v3">Marketing</span>
+        </div>
+        <h4 class="project-name-v3">PowerEnglish Page</h4>
+        <p class="project-desc-v3">
+          Mobile-first marketing landing page built for speed and lead generation.
+        </p>
+        <div class="project-bottom-v3">
+          <div class="project-tech-stack-v3">
+            <span class="tech-pill-v3">Performance</span>
+          </div>
+          <a class="project-btn-v3" href="https://ruisu-iwnl.github.io/mobile-marketing-landing-page-for-powerenglish/" target="_blank" rel="noopener" aria-label="View Project">
+            <i class="bi bi-arrow-up-right"></i>
+          </a>
+        </div>
+      </article>
+
+      <!-- Project 08: English Speaking -->
+      <article class="project-card-v3 reveal" data-category="marketing">
+        <div class="project-top-v3">
+          <span class="project-label-v3">Marketing</span>
+        </div>
+        <h4 class="project-name-v3">General Marketing</h4>
+        <p class="project-desc-v3">
+          Professional marketing presence for an international ESL company.
+        </p>
+        <div class="project-bottom-v3">
+          <div class="project-tech-stack-v3">
+            <span class="tech-pill-v3">UI/UX</span>
+          </div>
+          <a class="project-btn-v3" href="https://ruisu-iwnl.github.io/general-marketing-pc/" target="_blank" rel="noopener" aria-label="View Project">
+            <i class="bi bi-arrow-up-right"></i>
+          </a>
+        </div>
+      </article>
     </div>
   </div>
 </section>

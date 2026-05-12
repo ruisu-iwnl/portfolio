@@ -82,37 +82,6 @@ function initHeroTyping() {
   setTimeout(step, pauseAtStart);
 }
 
-function initProjectsCarousel() {
-  const shell = document.querySelector('[data-carousel="projects"]');
-  if (!shell) return;
-
-  const track = shell.querySelector(".projects-track");
-  const prevBtn = shell.querySelector(".projects-nav-prev");
-  const nextBtn = shell.querySelector(".projects-nav-next");
-
-  if (!track || !prevBtn || !nextBtn) return;
- 
-  function updateDisabled() {
-    prevBtn.disabled = track.scrollLeft <= 4;
-    const maxScroll = track.scrollWidth - track.clientWidth;
-    nextBtn.disabled = track.scrollLeft >= maxScroll - 4;
-  }
-
-  const scrollByAmount = (direction) => {
-    const card = track.querySelector(".project-card");
-    const step = card ? card.getBoundingClientRect().width + 16 : 320;
-    track.scrollBy({
-      left: direction * step,
-      behavior: "smooth",
-    });
-  };
-
-  prevBtn.addEventListener("click", () => scrollByAmount(-1));
-  nextBtn.addEventListener("click", () => scrollByAmount(1));
-
-  track.addEventListener("scroll", updateDisabled, { passive: true });
-  updateDisabled();
-}
 
 function initAboutTyping() {
   const textSpan = document.querySelector(".about-typing-text");
@@ -190,21 +159,318 @@ function initAboutCarousel() {
   render();
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  loadTemplate("navbar-container", "resources/templates/navbar.html");
-  loadTemplate("hero-container", "resources/templates/hero.html").then(
-    initHeroTyping
-  );
-  loadTemplate("projects-container", "resources/templates/projects.html").then(
-    initProjectsCarousel
-  );
-  loadTemplate("about-container", "resources/templates/about.html").then(() => {
-    initAboutTyping();
-    initAboutCarousel();
+/**
+ * Updates the scroll progress bar at the top of the page.
+ */
+function initScrollProgress() {
+  const progressBar = document.getElementById("scroll-progress");
+  if (!progressBar) return;
+
+  window.addEventListener("scroll", () => {
+    const winScroll =
+      document.body.scrollTop || document.documentElement.scrollTop;
+    const height =
+      document.documentElement.scrollHeight -
+      document.documentElement.clientHeight;
+    const scrolled = (winScroll / height) * 100;
+    progressBar.style.width = scrolled + "%";
   });
-  loadTemplate("contact-container", "resources/templates/contact.html");
-  loadTemplate("footer-container", "resources/templates/footer.html").then(
-    setCurrentYear
+}
+
+/**
+ * Initializes Intersection Observer to reveal elements on scroll.
+ */
+function initScrollReveal() {
+  const revealElements = document.querySelectorAll(".reveal");
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("active");
+          // Once revealed, we don't need to observe it anymore
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    {
+      threshold: 0.1,
+      rootMargin: "0px 0px -50px 0px", // Trigger slightly before element is in view
+    }
   );
+
+  revealElements.forEach((el) => observer.observe(el));
+}
+
+/**
+ * Interactive 3D tilt for the Hero Project Stack.
+ */
+function initHeroStack() {
+  const stack = document.getElementById("hero-stack");
+  if (!stack) return;
+
+  const wrapper = stack.parentElement;
+
+  wrapper.addEventListener("mousemove", (e) => {
+    const rect = wrapper.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+
+    const rotateX = (y - centerY) / 10;
+    const rotateY = (centerX - x) / 10;
+
+    stack.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+  });
+
+  wrapper.addEventListener("mouseleave", () => {
+    stack.style.transform = "rotateX(0) rotateY(0)";
+  });
+}
+
+function initProjectFilters() {
+  const filterBtns = document.querySelectorAll(".filter-btn");
+  const projects = document.querySelectorAll(".project-card-v3");
+
+  filterBtns.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      // Update active button
+      filterBtns.forEach((b) => b.classList.remove("active"));
+      btn.classList.add("active");
+
+      const filter = btn.getAttribute("data-filter");
+
+      projects.forEach((project) => {
+        const category = project.getAttribute("data-category");
+        if (filter === "all" || category === filter) {
+          project.classList.remove("hide-filter");
+          // Re-trigger reveal animation if it was already active
+          project.classList.add("active");
+        } else {
+          project.classList.add("hide-filter");
+        }
+      });
+    });
+  });
+}
+
+/**
+ * Initializes the back-to-top button visibility and click behavior.
+ */
+function initBackToTop() {
+  const btn = document.getElementById("back-to-top");
+  if (!btn) return;
+
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 400) {
+      btn.classList.add("show");
+    } else {
+      btn.classList.remove("show");
+    }
+  });
+
+  btn.addEventListener("click", () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  });
+}
+
+/**
+ * Updates the live time in the availability badge.
+ */
+function initLiveStatus() {
+  const timeEl = document.getElementById("current-time");
+  if (!timeEl) return;
+
+  function update() {
+    const now = new Date();
+    timeEl.textContent = now.toLocaleTimeString("en-US", {
+      timeZone: "Asia/Manila",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+      hour12: true,
+    });
+  }
+
+  update();
+  setInterval(update, 1000);
+}
+
+/**
+ * Handles copying email to clipboard and showing a toast.
+ */
+function initEmailCopy() {
+  const copyBtns = document.querySelectorAll(".btn-copy-email");
+  const toast = document.getElementById("toast-container");
+  const toastMsg = document.getElementById("toast-message");
+
+  copyBtns.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const email = btn.getAttribute("data-email");
+      if (!email) return;
+
+      navigator.clipboard.writeText(email).then(() => {
+        // Show toast
+        toast.classList.add("show");
+        setTimeout(() => {
+          toast.classList.remove("show");
+        }, 3000);
+      });
+    });
+  });
+}
+
+/**
+ * Highlights the active navigation link based on scroll position.
+ */
+function initScrollSpy() {
+  const sections = document.querySelectorAll("section[id]");
+  const navLinks = document.querySelectorAll(".navbar-nav .nav-link");
+
+  window.addEventListener("scroll", () => {
+    let current = "hero"; // Default to hero
+
+    sections.forEach((section) => {
+      const sectionTop = section.offsetTop;
+      const sectionHeight = section.clientHeight;
+      // If we've scrolled past the top of the section (with an offset)
+      if (window.scrollY >= sectionTop - 200) {
+        current = section.getAttribute("id");
+      }
+    });
+
+    // Handle special case for bottom of the page
+    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 50) {
+      current = sections[sections.length - 1].getAttribute("id");
+    }
+
+    navLinks.forEach((link) => {
+      link.classList.remove("active");
+      const href = link.getAttribute("href");
+      if (href === "#" + current || (current === "hero" && href === "#")) {
+        link.classList.add("active");
+      }
+    });
+  });
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  initScrollProgress();
+  initBackToTop();
+  initScrollSpy();
+
+  const promises = [
+    loadTemplate("navbar-container", "resources/templates/navbar.html"),
+    loadTemplate("hero-container", "resources/templates/hero.html").then(() => {
+      initHeroTyping();
+      initHeroStack();
+    }),
+    loadTemplate("expertise-container", "resources/templates/expertise.html"),
+    loadTemplate("projects-container", "resources/templates/projects.html").then(
+      initProjectFilters
+    ),
+    loadTemplate("about-container", "resources/templates/about.html").then(() => {
+      initAboutTyping();
+      initAboutCarousel();
+    }),
+    loadTemplate("contact-container", "resources/templates/contact.html"),
+    loadTemplate("footer-container", "resources/templates/footer.html").then(
+      setCurrentYear
+    ),
+  ];
+
+  Promise.all(promises).then(() => {
+    initScrollReveal();
+    initLiveStatus();
+    initEmailCopy();
+    initSkillRadar();
+    initUnderTheHood();
+  });
 });
+
+/**
+ * Renders the interactive Skill Radar chart using Chart.js.
+ */
+function initSkillRadar() {
+  const ctx = document.getElementById("skillRadar");
+  if (!ctx) return;
+
+  new Chart(ctx, {
+    type: 'radar',
+    data: {
+      labels: ['Backend', 'AI/LLM', 'DevOps', 'Automation', 'Frontend'],
+      datasets: [{
+        label: 'Proficiency',
+        data: [95, 88, 82, 90, 75],
+        fill: true,
+        backgroundColor: 'rgba(147, 197, 253, 0.2)',
+        borderColor: '#93c5fd',
+        pointBackgroundColor: '#93c5fd',
+        pointBorderColor: '#fff',
+        pointHoverBackgroundColor: '#fff',
+        pointHoverBorderColor: '#93c5fd'
+      }]
+    },
+    options: {
+      elements: { line: { borderWidth: 2 } },
+      scales: {
+        r: {
+          angleLines: { color: 'rgba(148, 163, 184, 0.2)' },
+          grid: { color: 'rgba(148, 163, 184, 0.2)' },
+          pointLabels: { color: '#94a3b8', font: { size: 10 } },
+          ticks: { display: false },
+          suggestedMin: 0,
+          suggestedMax: 100
+        }
+      },
+      plugins: { legend: { display: false } }
+    }
+  });
+}
+
+/**
+ * Handles the 'Under the Hood' technical overlays.
+ */
+function initUnderTheHood() {
+  const btns = document.querySelectorAll(".under-the-hood-btn");
+  const overlay = document.getElementById("technical-overlay");
+  const closeBtn = document.querySelector(".overlay-close");
+  const codeEl = document.getElementById("overlay-code");
+  const titleEl = document.getElementById("overlay-title");
+  const descEl = document.getElementById("overlay-description");
+
+  if (!overlay || !closeBtn) return;
+
+  const data = {
+    expertise: {
+      title: "Skills Architecture",
+      code: "const radarData = {\n  labels: ['Backend', 'AI', 'DevOps'],\n  datasets: [{ data: [95, 88, 82] }]\n};",
+      desc: "This section uses Chart.js to visualize technical balance. The radar chart is rendered on a high-DPI canvas with custom-themed grid lines to match the portfolio's aesthetic."
+    }
+    // Add more sections as needed
+  };
+
+  btns.forEach(btn => {
+    btn.addEventListener("click", () => {
+      const section = btn.getAttribute("data-section");
+      const info = data[section];
+      if (!info) return;
+
+      titleEl.textContent = info.title;
+      codeEl.textContent = info.code;
+      descEl.textContent = info.desc;
+      overlay.classList.add("show");
+    });
+  });
+
+  closeBtn.addEventListener("click", () => overlay.classList.remove("show"));
+  overlay.addEventListener("click", (e) => {
+    if (e.target === overlay) overlay.classList.remove("show");
+  });
+}
 
