@@ -195,13 +195,13 @@ document.addEventListener("DOMContentLoaded", () => {
   loadTemplate("hero-container", "resources/templates/hero.html").then(
     initHeroTyping
   );
+  loadTemplate("projects-container", "resources/templates/projects.html").then(
+    initProjectsCarousel
+  );
   loadTemplate("about-container", "resources/templates/about.html").then(() => {
     initAboutTyping();
     initAboutCarousel();
   });
-  loadTemplate("projects-container", "resources/templates/projects.html").then(
-    initProjectsCarousel
-  );
   loadTemplate("contact-container", "resources/templates/contact.html");
   loadTemplate("footer-container", "resources/templates/footer.html").then(
     setCurrentYear
