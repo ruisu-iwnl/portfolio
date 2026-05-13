@@ -83,30 +83,6 @@ function initHeroTyping() {
 }
 
 
-function initAboutTyping() {
-  const textSpan = document.querySelector(".about-typing-text");
-  const caret = document.querySelector(".about-caret");
-
-  if (!textSpan || !caret) return;
-
-  const fullText = textSpan.getAttribute("data-text") || textSpan.textContent;
-  let index = 0;
-  const speed = 35;
-
-  textSpan.textContent = "";
-
-  function step() {
-    if (index >= fullText.length) {
-      return;
-    }
-
-    textSpan.textContent += fullText.charAt(index);
-    index += 1;
-    setTimeout(step, speed);
-  }
-
-  step();
-}
 
 function initAboutCarousel() {
   const shell = document.querySelector('[data-carousel="about"]');
@@ -137,7 +113,9 @@ function initAboutCarousel() {
     const show = () => {
       imgEl.src = src;
       imgEl.classList.add("is-active");
-      counterEl.textContent = `${index + 1} / ${total}`;
+      if (counterEl) {
+        counterEl.textContent = `${index + 1} / ${total}`;
+      }
     };
 
     imgEl.classList.remove("is-active");
@@ -375,7 +353,6 @@ document.addEventListener("DOMContentLoaded", () => {
       initProjectFilters
     ),
     loadTemplate("about-container", "resources/templates/about.html").then(() => {
-      initAboutTyping();
       initAboutCarousel();
     }),
     loadTemplate("contact-container", "resources/templates/contact.html"),
