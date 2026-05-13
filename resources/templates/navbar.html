@@ -1,13 +1,8 @@
 <nav class="navbar navbar-expand-lg navbar-dark navbar-minimal">
   <div class="container d-flex align-items-center justify-content-between">
     <a class="navbar-brand fw-semibold text-lowercase" href="#">luis pelaez.</a>
-    <div class="status-badge ms-2 mb-0 py-1 px-2" style="font-size: 0.7rem;">
-      <span class="status-dot"></span>
-      <span class="d-none d-sm-inline">Available for work</span>
-      <span class="status-time ms-1" id="current-time">00:00:00</span>
-    </div>
     <button
-      class="navbar-toggler"
+      class="navbar-toggler collapsed"
       type="button"
       data-bs-toggle="collapse"
       data-bs-target="#navbarNav"
@@ -15,10 +10,12 @@
       aria-expanded="false"
       aria-label="Toggle navigation"
     >
-      <span class="navbar-toggler-icon"></span>
+      <span class="toggler-icon top-bar"></span>
+      <span class="toggler-icon middle-bar"></span>
+      <span class="toggler-icon bottom-bar"></span>
     </button>
     <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-      <ul class="navbar-nav gap-2">
+      <ul class="navbar-nav gap-2 py-3 py-lg-0">
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="#hero">home</a>
         </li>

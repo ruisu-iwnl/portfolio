@@ -79,6 +79,61 @@ body {
   color: var(--text-main);
 }
 
+/* Custom Navbar Toggler */
+.navbar-toggler {
+  border: none !important;
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.toggler-icon {
+  width: 24px;
+  height: 2px;
+  background-color: var(--text-main);
+  display: block;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  border-radius: 2px;
+}
+
+.navbar-toggler:not(.collapsed) .top-bar {
+  transform: translateY(8px) rotate(45deg);
+}
+
+.navbar-toggler:not(.collapsed) .middle-bar {
+  opacity: 0;
+}
+
+.navbar-toggler:not(.collapsed) .bottom-bar {
+  transform: translateY(-8px) rotate(-45deg);
+}
+
+/* Mobile Menu Styles */
+@media (max-width: 991.98px) {
+  .navbar-collapse {
+    background: rgba(9, 26, 46, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(229, 231, 235, 0.1);
+    border-radius: 20px;
+    margin-top: 1rem;
+    padding: 1.5rem;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  }
+
+  .navbar-nav {
+    text-align: center;
+  }
+
+  .navbar-nav .nav-link {
+    font-size: 1.1rem !important;
+    padding: 0.75rem 0;
+  }
+}
+
 .hero-section {
   background-color: var(--bg-hero);
   color: #e5e7eb;
@@ -1407,4 +1462,76 @@ body {
 
 #toast-container i {
   color: #34d399;
+}/* Global Mobile Responsiveness Audit */
+@media (max-width: 768px) {
+  .section-padding {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+  }
+
+  .display-4 {
+    font-size: 2.25rem !important;
+  }
+
+  .display-5 {
+    font-size: 1.85rem !important;
+  }
+
+  /* Hero Section Mobile */
+  .hero-inner {
+    padding-top: 4rem;
+    padding-bottom: 6rem;
+    text-align: center;
+  }
+
+  .hero-actions {
+    justify-content: center;
+  }
+
+  .hero-stack-wrapper {
+    margin-top: 3rem;
+    height: 350px;
+  }
+
+  /* Expertise Section Mobile */
+  .expertise-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .radar-chart-container {
+    height: 250px;
+  }
+
+  /* Projects Section Mobile */
+  .project-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .filter-btns {
+    overflow-x: auto;
+    white-space: nowrap;
+    padding-bottom: 1rem;
+    justify-content: flex-start;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Contact Section Mobile */
+  .contact-glass-card {
+    padding: 2rem 1.5rem;
+  }
+
+  .contact-meta-badge {
+    margin-bottom: 1.5rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .status-badge {
+    padding: 0.25rem 0.5rem !important;
+  }
+  
+  .status-time {
+    display: none;
+  }
 }

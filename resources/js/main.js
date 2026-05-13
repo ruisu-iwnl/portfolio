@@ -185,11 +185,17 @@ function initScrollReveal() {
  */
 function initHeroStack() {
   const stack = document.getElementById("hero-stack");
-  if (!stack) return;
+  const wrapper = stack?.parentElement;
+  if (!stack || !wrapper) return;
 
-  const wrapper = stack.parentElement;
+  let isDragging = false;
+  let startX, startY;
+  let currentRotateX = 0;
+  let currentRotateY = 0;
 
+  // Mouse Interaction (Desktop)
   wrapper.addEventListener("mousemove", (e) => {
+    if (window.innerWidth < 992) return; // Use touch for mobile
     const rect = wrapper.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
@@ -204,7 +210,41 @@ function initHeroStack() {
   });
 
   wrapper.addEventListener("mouseleave", () => {
+    if (window.innerWidth < 992) return;
     stack.style.transform = "rotateX(0) rotateY(0)";
+  });
+
+  // Touch Interaction (Mobile)
+  wrapper.addEventListener("touchstart", (e) => {
+    isDragging = true;
+    startX = e.touches[0].clientX;
+    startY = e.touches[0].clientY;
+    stack.style.transition = "none"; // Disable transition for direct response
+  }, { passive: true });
+
+  wrapper.addEventListener("touchmove", (e) => {
+    if (!isDragging) return;
+    const x = e.touches[0].clientX;
+    const y = e.touches[0].clientY;
+
+    const deltaX = x - startX;
+    const deltaY = y - startY;
+
+    // Map drag to rotation (inverted Y for natural feel)
+    currentRotateY = deltaX / 5;
+    currentRotateX = -deltaY / 5;
+
+    // Limit rotation to avoid flipping
+    currentRotateX = Math.max(-30, Math.min(30, currentRotateX));
+    currentRotateY = Math.max(-30, Math.min(30, currentRotateY));
+
+    stack.style.transform = `rotateX(${currentRotateX + 10}deg) rotateY(${currentRotateY - 10}deg)`;
+  }, { passive: true });
+
+  wrapper.addEventListener("touchend", () => {
+    isDragging = false;
+    stack.style.transition = "transform 0.8s cubic-bezier(0.16, 1, 0.3, 1)";
+    stack.style.transform = "rotateX(10deg) rotateY(-10deg)"; // Return to attractive mobile angle
   });
 }
 
@@ -257,27 +297,7 @@ function initBackToTop() {
   });
 }
 
-/**
- * Updates the live time in the availability badge.
- */
-function initLiveStatus() {
-  const timeEl = document.getElementById("current-time");
-  if (!timeEl) return;
 
-  function update() {
-    const now = new Date();
-    timeEl.textContent = now.toLocaleTimeString("en-US", {
-      timeZone: "Asia/Manila",
-      hour: "2-digit",
-      minute: "2-digit",
-      second: "2-digit",
-      hour12: true,
-    });
-  }
-
-  update();
-  setInterval(update, 1000);
-}
 
 /**
  * Handles copying email to clipboard and showing a toast.
@@ -363,12 +383,30 @@ document.addEventListener("DOMContentLoaded", () => {
 
   Promise.all(promises).then(() => {
     initScrollReveal();
-    initLiveStatus();
     initEmailCopy();
     initSkillRadar();
     initUnderTheHood();
+    initMobileMenu();
   });
 });
+
+/**
+ * Handles mobile-specific navigation behaviors.
+ */
+function initMobileMenu() {
+  const navLinks = document.querySelectorAll(".navbar-nav .nav-link");
+  const menuCollapse = document.getElementById("navbarNav");
+  const bsCollapse = menuCollapse ? new bootstrap.Collapse(menuCollapse, { toggle: false }) : null;
+
+  navLinks.forEach((link) => {
+    link.addEventListener("click", () => {
+      // Auto-close menu on link click if it's currently shown (mobile)
+      if (menuCollapse && menuCollapse.classList.contains("show")) {
+        bsCollapse.hide();
+      }
+    });
+  });
+}
 
 /**
  * Renders the interactive Skill Radar chart using Chart.js.
