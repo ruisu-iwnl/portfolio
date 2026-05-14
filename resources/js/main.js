@@ -33,11 +33,11 @@ function initHeroTyping() {
   if (!textSpan || !caret) return;
 
   const titles = [
-    "Full Stack PHP Developer",
-    "Web Developer",
+    "Full Stack Developer",
+    "Next.js Specialist",
+    "React Developer",
     "UI/UX Designer",
-    "Front-end Developer",
-    "Back-end Developer",
+    "Backend Automation",
   ];
 
   let titleIndex = 0;
@@ -418,7 +418,7 @@ function initSkillRadar() {
   new Chart(ctx, {
     type: 'radar',
     data: {
-      labels: ['Backend', 'AI/LLM', 'DevOps', 'Automation', 'Frontend'],
+      labels: ['Backend', 'AI/LLM', 'DevOps', 'Next.js', 'React/TS'],
       datasets: [{
         label: 'Proficiency',
         data: [95, 88, 82, 90, 75],
@@ -464,8 +464,13 @@ function initUnderTheHood() {
   const data = {
     expertise: {
       title: "Skills Architecture",
-      code: "const radarData = {\n  labels: ['Backend', 'AI', 'DevOps'],\n  datasets: [{ data: [95, 88, 82] }]\n};",
-      desc: "This section uses Chart.js to visualize technical balance. The radar chart is rendered on a high-DPI canvas with custom-themed grid lines to match the portfolio's aesthetic."
+      code: "const techStack = {\n  frontend: ['React', 'Next.js', 'TypeScript'],\n  backend: ['PHP 8+', 'Python', 'Node.js']\n};",
+      desc: "This section uses Chart.js to visualize technical balance. My core focus has shifted towards modern type-safe development with React and Next.js while maintaining deep expertise in backend automation."
+    },
+    joulery: {
+      title: "Joulery Architecture",
+      code: "export const SITE_CONFIG = {\n  name: 'JOULERY',\n  title: 'JOULERY | Creative Handcrafted Items',\n  keywords: ['handcrafted', 'jewelry', 'nextjs']\n};",
+      desc: "Joulery is a modern e-commerce platform built with Next.js 14, leveraging App Router for optimal performance and Tailwind CSS for a refined, responsive UI."
     }
     // Add more sections as needed
   };
