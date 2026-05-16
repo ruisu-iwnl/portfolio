@@ -4,17 +4,12 @@
   </button>
   <div class="container">
     <div class="row mb-5">
-      <div class="col-lg-8">
+      <div class="col-lg-10 mx-auto text-center">
         <h2 class="section-title">Expertise</h2>
         <h3 class="display-5 fw-bold mb-3">Technical Skills</h3>
-        <p class="section-text">
+        <p class="section-text mx-auto" style="max-width: 700px;">
           Core competencies and specialized areas of focus derived from hands-on production experience.
         </p>
-      </div>
-      <div class="col-lg-4 reveal reveal-delay-1">
-        <div class="radar-chart-container">
-          <canvas id="skillRadar"></canvas>
-        </div>
       </div>
     </div>
 
@@ -80,11 +75,11 @@
         <div class="skill-card">
           <div class="skill-icon"><i class="bi bi-infinity"></i></div>
           <h4 class="skill-title">CI/CD Pipelines</h4>
-          <p class="skill-text">Automated workflows using GitHub Actions, AWS, and Cafe24 hosting.</p>
+          <p class="skill-text">Automated workflows using Vercel, GitHub Actions, AWS, and Cafe24 hosting.</p>
           <div class="skill-tags">
+            <span>Vercel</span>
             <span>GitHub</span>
             <span>AWS</span>
-            <span>Cafe24</span>
           </div>
         </div>
       </div>
@@ -92,18 +87,32 @@
       <!-- Integrations -->
       <div class="col-md-6 col-xl-3 reveal reveal-delay-1">
         <div class="skill-card">
-          <div class="skill-icon"><i class="bi bi-chat-dots"></i></div>
-          <h4 class="skill-title">Messaging API</h4>
-          <p class="skill-text">Unified integrations for KakaoTalk, SMS, and LMS high-availability pipelines.</p>
+          <div class="skill-icon"><i class="bi bi-link-45deg"></i></div>
+          <h4 class="skill-title">API & Payments</h4>
+          <p class="skill-text">Implementing PayMongo gateways and webhook systems for automated, event-driven payment flows.</p>
           <div class="skill-tags">
-            <span>KakaoTalk</span>
+            <span>PayMongo</span>
+            <span>Webhooks</span>
             <span>REST API</span>
           </div>
         </div>
       </div>
 
-      <!-- QA -->
+      <!-- Modern Stack -->
       <div class="col-md-6 col-xl-3 reveal reveal-delay-2">
+        <div class="skill-card">
+          <div class="skill-icon"><i class="bi bi-database"></i></div>
+          <h4 class="skill-title">Headless CMS</h4>
+          <p class="skill-text">Architecting content-rich platforms using Payload CMS with MongoDB for flexible data modeling.</p>
+          <div class="skill-tags">
+            <span>Payload CMS</span>
+            <span>MongoDB</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Performance QA -->
+      <div class="col-md-6 col-xl-3 reveal reveal-delay-3">
         <div class="skill-card">
           <div class="skill-icon"><i class="bi bi-clipboard-check"></i></div>
           <h4 class="skill-title">Performance QA</h4>
@@ -116,7 +125,7 @@
       </div>
 
       <!-- Modernization -->
-      <div class="col-md-6 col-xl-3 reveal reveal-delay-3">
+      <div class="col-md-6 col-xl-3 reveal">
         <div class="skill-card">
           <div class="skill-icon"><i class="bi bi-shield-check"></i></div>
           <h4 class="skill-title">Legacy Systems</h4>

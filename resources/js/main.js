@@ -35,8 +35,8 @@ function initHeroTyping() {
   const titles = [
     "Full Stack Developer",
     "Next.js Specialist",
+    "Payload CMS Developer",
     "React Developer",
-    "UI/UX Designer",
     "Backend Automation",
   ];
 
@@ -384,7 +384,6 @@ document.addEventListener("DOMContentLoaded", () => {
   Promise.all(promises).then(() => {
     initScrollReveal();
     initEmailCopy();
-    initSkillRadar();
     initUnderTheHood();
     initMobileMenu();
   });
@@ -408,45 +407,7 @@ function initMobileMenu() {
   });
 }
 
-/**
- * Renders the interactive Skill Radar chart using Chart.js.
- */
-function initSkillRadar() {
-  const ctx = document.getElementById("skillRadar");
-  if (!ctx) return;
 
-  new Chart(ctx, {
-    type: 'radar',
-    data: {
-      labels: ['Backend', 'AI/LLM', 'DevOps', 'Next.js', 'React/TS'],
-      datasets: [{
-        label: 'Proficiency',
-        data: [95, 88, 82, 90, 75],
-        fill: true,
-        backgroundColor: 'rgba(147, 197, 253, 0.2)',
-        borderColor: '#93c5fd',
-        pointBackgroundColor: '#93c5fd',
-        pointBorderColor: '#fff',
-        pointHoverBackgroundColor: '#fff',
-        pointHoverBorderColor: '#93c5fd'
-      }]
-    },
-    options: {
-      elements: { line: { borderWidth: 2 } },
-      scales: {
-        r: {
-          angleLines: { color: 'rgba(148, 163, 184, 0.2)' },
-          grid: { color: 'rgba(148, 163, 184, 0.2)' },
-          pointLabels: { color: '#94a3b8', font: { size: 10 } },
-          ticks: { display: false },
-          suggestedMin: 0,
-          suggestedMax: 100
-        }
-      },
-      plugins: { legend: { display: false } }
-    }
-  });
-}
 
 /**
  * Handles the 'Under the Hood' technical overlays.
@@ -464,8 +425,8 @@ function initUnderTheHood() {
   const data = {
     expertise: {
       title: "Skills Architecture",
-      code: "const techStack = {\n  frontend: ['React', 'Next.js', 'TypeScript'],\n  backend: ['PHP 8+', 'Python', 'Node.js']\n};",
-      desc: "This section uses Chart.js to visualize technical balance. My core focus has shifted towards modern type-safe development with React and Next.js while maintaining deep expertise in backend automation."
+      code: "const techStack = {\n  modern: ['Payload CMS', 'MongoDB', 'Next.js'],\n  integrations: ['PayMongo', 'Webhooks', 'REST'],\n  legacy: ['PHP 4/8', 'SQL']\n};",
+      desc: "This section highlights my core technical competencies. My focus is on modern type-safe development with Payload CMS, MongoDB, and Next.js, while ensuring robust payment integrations with PayMongo."
     },
     joulery: {
       title: "Joulery Architecture",
