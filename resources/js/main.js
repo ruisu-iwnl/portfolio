@@ -180,77 +180,9 @@ function initScrollReveal() {
   revealElements.forEach((el) => observer.observe(el));
 }
 
-/**
- * Interactive 3D tilt for the Hero Project Stack.
- */
-function initHeroStack() {
-  const stack = document.getElementById("hero-stack");
-  const wrapper = stack?.parentElement;
-  if (!stack || !wrapper) return;
-
-  let isDragging = false;
-  let startX, startY;
-  let currentRotateX = 0;
-  let currentRotateY = 0;
-
-  // Mouse Interaction (Desktop)
-  wrapper.addEventListener("mousemove", (e) => {
-    if (window.innerWidth < 992) return; // Use touch for mobile
-    const rect = wrapper.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-
-    const rotateX = (y - centerY) / 10;
-    const rotateY = (centerX - x) / 10;
-
-    stack.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-  });
-
-  wrapper.addEventListener("mouseleave", () => {
-    if (window.innerWidth < 992) return;
-    stack.style.transform = "rotateX(0) rotateY(0)";
-  });
-
-  // Touch Interaction (Mobile)
-  wrapper.addEventListener("touchstart", (e) => {
-    isDragging = true;
-    startX = e.touches[0].clientX;
-    startY = e.touches[0].clientY;
-    stack.style.transition = "none"; // Disable transition for direct response
-  }, { passive: true });
-
-  wrapper.addEventListener("touchmove", (e) => {
-    if (!isDragging) return;
-    const x = e.touches[0].clientX;
-    const y = e.touches[0].clientY;
-
-    const deltaX = x - startX;
-    const deltaY = y - startY;
-
-    // Map drag to rotation (inverted Y for natural feel)
-    currentRotateY = deltaX / 5;
-    currentRotateX = -deltaY / 5;
-
-    // Limit rotation to avoid flipping
-    currentRotateX = Math.max(-30, Math.min(30, currentRotateX));
-    currentRotateY = Math.max(-30, Math.min(30, currentRotateY));
-
-    stack.style.transform = `rotateX(${currentRotateX + 10}deg) rotateY(${currentRotateY - 10}deg)`;
-  }, { passive: true });
-
-  wrapper.addEventListener("touchend", () => {
-    isDragging = false;
-    stack.style.transition = "transform 0.8s cubic-bezier(0.16, 1, 0.3, 1)";
-    stack.style.transform = "rotateX(10deg) rotateY(-10deg)"; // Return to attractive mobile angle
-  });
-}
-
 function initProjectFilters() {
   const filterBtns = document.querySelectorAll(".filter-btn");
-  const projects = document.querySelectorAll(".project-card-v3");
+  const projects = document.querySelectorAll(".project-row");
 
   filterBtns.forEach((btn) => {
     btn.addEventListener("click", () => {
@@ -300,12 +232,25 @@ function initBackToTop() {
 
 
 /**
+ * Shows the toast notification with the given message.
+ */
+function showToast(message) {
+  const toast = document.getElementById("toast-container");
+  const toastMsg = document.getElementById("toast-message");
+  if (!toast || !toastMsg) return;
+
+  toastMsg.textContent = message;
+  toast.classList.add("show");
+  setTimeout(() => {
+    toast.classList.remove("show");
+  }, 3000);
+}
+
+/**
  * Handles copying email to clipboard and showing a toast.
  */
 function initEmailCopy() {
   const copyBtns = document.querySelectorAll(".btn-copy-email");
-  const toast = document.getElementById("toast-container");
-  const toastMsg = document.getElementById("toast-message");
 
   copyBtns.forEach((btn) => {
     btn.addEventListener("click", () => {
@@ -313,13 +258,51 @@ function initEmailCopy() {
       if (!email) return;
 
       navigator.clipboard.writeText(email).then(() => {
-        // Show toast
-        toast.classList.add("show");
-        setTimeout(() => {
-          toast.classList.remove("show");
-        }, 3000);
+        showToast("Copied to clipboard!");
       });
     });
+  });
+}
+
+/**
+ * Submits the contact form to Web3Forms via fetch, so the page
+ * never navigates away, and reports the result via toast.
+ */
+function initContactForm() {
+  const form = document.getElementById("contact-form");
+  if (!form) return;
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const submitBtn = form.querySelector("button[type='submit']");
+    const submitLabel = submitBtn.querySelector("span");
+    const originalLabel = submitLabel.textContent;
+
+    submitBtn.disabled = true;
+    submitLabel.textContent = "Sending...";
+
+    fetch(form.action, {
+      method: "POST",
+      headers: { Accept: "application/json" },
+      body: new FormData(form),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          showToast("Message sent — I'll get back to you soon!");
+          form.reset();
+        } else {
+          showToast("Something went wrong. Please email me directly.");
+        }
+      })
+      .catch(() => {
+        showToast("Something went wrong. Please email me directly.");
+      })
+      .finally(() => {
+        submitBtn.disabled = false;
+        submitLabel.textContent = originalLabel;
+      });
   });
 }
 
@@ -366,7 +349,6 @@ document.addEventListener("DOMContentLoaded", () => {
     loadTemplate("navbar-container", "resources/templates/navbar.html"),
     loadTemplate("hero-container", "resources/templates/hero.html").then(() => {
       initHeroTyping();
-      initHeroStack();
     }),
     loadTemplate("expertise-container", "resources/templates/expertise.html"),
     loadTemplate("projects-container", "resources/templates/projects.html").then(
@@ -375,7 +357,9 @@ document.addEventListener("DOMContentLoaded", () => {
     loadTemplate("about-container", "resources/templates/about.html").then(() => {
       initAboutCarousel();
     }),
-    loadTemplate("contact-container", "resources/templates/contact.html"),
+    loadTemplate("contact-container", "resources/templates/contact.html").then(
+      initContactForm
+    ),
     loadTemplate("footer-container", "resources/templates/footer.html").then(
       setCurrentYear
     ),
@@ -384,7 +368,6 @@ document.addEventListener("DOMContentLoaded", () => {
   Promise.all(promises).then(() => {
     initScrollReveal();
     initEmailCopy();
-    initUnderTheHood();
     initMobileMenu();
   });
 });
@@ -407,51 +390,4 @@ function initMobileMenu() {
   });
 }
 
-
-
-/**
- * Handles the 'Under the Hood' technical overlays.
- */
-function initUnderTheHood() {
-  const btns = document.querySelectorAll(".under-the-hood-btn");
-  const overlay = document.getElementById("technical-overlay");
-  const closeBtn = document.querySelector(".overlay-close");
-  const codeEl = document.getElementById("overlay-code");
-  const titleEl = document.getElementById("overlay-title");
-  const descEl = document.getElementById("overlay-description");
-
-  if (!overlay || !closeBtn) return;
-
-  const data = {
-    expertise: {
-      title: "Skills Architecture",
-      code: "const techStack = {\n  modern: ['Payload CMS', 'MongoDB', 'Next.js'],\n  integrations: ['PayMongo', 'Webhooks', 'REST'],\n  legacy: ['PHP 4/8', 'SQL']\n};",
-      desc: "This section highlights my core technical competencies. My focus is on modern type-safe development with Payload CMS, MongoDB, and Next.js, while ensuring robust payment integrations with PayMongo."
-    },
-    joulery: {
-      title: "Joulery Architecture",
-      code: "export const SITE_CONFIG = {\n  name: 'JOULERY',\n  title: 'JOULERY | Creative Handcrafted Items',\n  keywords: ['handcrafted', 'jewelry', 'nextjs']\n};",
-      desc: "Joulery is a modern e-commerce platform built with Next.js 14, leveraging App Router for optimal performance and Tailwind CSS for a refined, responsive UI."
-    }
-    // Add more sections as needed
-  };
-
-  btns.forEach(btn => {
-    btn.addEventListener("click", () => {
-      const section = btn.getAttribute("data-section");
-      const info = data[section];
-      if (!info) return;
-
-      titleEl.textContent = info.title;
-      codeEl.textContent = info.code;
-      descEl.textContent = info.desc;
-      overlay.classList.add("show");
-    });
-  });
-
-  closeBtn.addEventListener("click", () => overlay.classList.remove("show"));
-  overlay.addEventListener("click", (e) => {
-    if (e.target === overlay) overlay.classList.remove("show");
-  });
-}
 
