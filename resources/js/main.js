@@ -180,6 +180,79 @@ function initScrollReveal() {
   revealElements.forEach((el) => observer.observe(el));
 }
 
+/**
+ * Builds the markup for one project row from a PROJECTS entry
+ * (see resources/js/projects-data.js).
+ */
+function renderProjectRow(project) {
+  const { category, categoryLabel, title, media, description, highlights, tech, links } = project;
+
+  let mediaHtml = "";
+  if (media.type === "video") {
+    mediaHtml = `
+        <button type="button" class="project-row-thumb-wrap project-row-video-wrap" aria-label="View video showcase of ${title}">
+          <video
+            class="project-row-thumb project-row-video"
+            src="${media.src}"
+            muted
+            loop
+            playsinline
+            preload="metadata"
+          ></video>
+        </button>`;
+  } else if (media.type === "image") {
+    mediaHtml = `
+        <button type="button" class="project-row-thumb-wrap" aria-label="View screenshot of ${title}">
+          <img class="project-row-thumb" src="${media.src}" alt="${media.alt || title}">
+          <span class="project-row-thumb-zoom"><i class="bi bi-zoom-in"></i></span>
+        </button>`;
+  }
+
+  const highlightsHtml = highlights && highlights.length
+    ? `
+          <ul class="project-row-highlights">
+            ${highlights.map((h) => `<li><strong>${h.label}:</strong> ${h.text}</li>`).join("\n            ")}
+          </ul>`
+    : "";
+
+  const linksHtml = links
+    .map((link) => {
+      const icon = link.icon ? ` <i class="bi bi-arrow-up-right"></i>` : "";
+      return `<a href="${link.href}" target="_blank" rel="noopener">${link.label}${icon}</a>`;
+    })
+    .join("\n              ");
+
+  return `
+      <article class="project-row reveal" data-category="${category}">${mediaHtml}
+        <div class="project-row-body">
+          <div class="project-row-head">
+            <span class="project-row-category">${categoryLabel}</span>
+            <h4 class="project-row-title">${title}</h4>
+          </div>
+          <p class="project-row-desc">
+            ${description}
+          </p>${highlightsHtml}
+          <div class="project-row-meta">
+            <span class="project-row-tech">${tech.join(" &middot; ")}</span>
+            <div class="project-row-links">
+              ${linksHtml}
+            </div>
+          </div>
+        </div>
+      </article>`;
+}
+
+/**
+ * Renders the PROJECTS array (resources/js/projects-data.js) into the
+ * project list. To reorder, edit or move entries in that array — this
+ * just reflects whatever order they're in.
+ */
+function renderProjects() {
+  const container = document.getElementById("project-list");
+  if (!container || typeof PROJECTS === "undefined") return;
+  container.innerHTML = PROJECTS.map(renderProjectRow).join("\n");
+}
+
 function initProjectFilters() {
   const filterBtns = document.querySelectorAll(".filter-btn");
   const projects = document.querySelectorAll(".project-row");
@@ -203,6 +276,136 @@ function initProjectFilters() {
         }
       });
     });
+  });
+}
+
+/**
+ * Opens project thumbnails in a full-size modal on click.
+ */
+function initImageModal() {
+  const modal = document.getElementById("image-modal");
+  const modalImg = document.getElementById("image-modal-img");
+  const closeBtn = modal?.querySelector(".image-modal-close");
+  const thumbs = document.querySelectorAll(".project-row-thumb-wrap");
+
+  if (!modal || !modalImg || !closeBtn || !thumbs.length) return;
+
+  const openModal = (src, alt) => {
+    modalImg.src = src;
+    modalImg.alt = alt;
+    modal.classList.add("show");
+  };
+
+  const closeModal = () => {
+    modal.classList.remove("show");
+  };
+
+  thumbs.forEach((thumb) => {
+    thumb.addEventListener("click", () => {
+      const img = thumb.querySelector("img");
+      if (img) openModal(img.src, img.alt);
+    });
+  });
+
+  closeBtn.addEventListener("click", closeModal);
+  modal.addEventListener("click", (e) => {
+    if (e.target === modal) closeModal();
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeModal();
+  });
+}
+
+/**
+ * Opens the resume PDF in a modal from the navbar button.
+ */
+function initResumeModal() {
+  const btn = document.getElementById("resume-btn");
+  const modal = document.getElementById("resume-modal");
+  const closeBtn = modal?.querySelector(".resume-modal-close");
+
+  if (!btn || !modal || !closeBtn) return;
+
+  const openModal = () => modal.classList.add("show");
+  const closeModal = () => modal.classList.remove("show");
+
+  btn.addEventListener("click", openModal);
+  closeBtn.addEventListener("click", closeModal);
+  modal.addEventListener("click", (e) => {
+    if (e.target === modal) closeModal();
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeModal();
+  });
+}
+
+/**
+ * Plays project showcase videos only while they're crossing a band through
+ * the vertical center of the screen (so they don't burn bandwidth/CPU
+ * off-screen), and auto-enlarges the thumbnail while it's in that band
+ * instead of requiring a mouse hover. rootMargin shrinks the detection
+ * zone down to that center band rather than the full viewport, so it
+ * compresses as soon as it drifts off-center — not only once fully hidden.
+ */
+function initProjectVideos() {
+  const videos = document.querySelectorAll(".project-row-video");
+  if (!videos.length) return;
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        const video = entry.target;
+        const wrap = video.closest(".project-row-video-wrap");
+        if (entry.isIntersecting) {
+          video.play().catch(() => {});
+          wrap?.classList.add("in-view");
+        } else {
+          video.pause();
+          wrap?.classList.remove("in-view");
+        }
+      });
+    },
+    { rootMargin: "-40% 0px -40% 0px", threshold: 0 }
+  );
+
+  videos.forEach((video) => observer.observe(video));
+}
+
+/**
+ * Opens project showcase videos full-size in a modal on click.
+ */
+function initVideoModal() {
+  const modal = document.getElementById("video-modal");
+  const modalVideo = document.getElementById("video-modal-video");
+  const closeBtn = modal?.querySelector(".image-modal-close");
+  const triggers = document.querySelectorAll(".project-row-video-wrap");
+
+  if (!modal || !modalVideo || !closeBtn || !triggers.length) return;
+
+  const openModal = (src) => {
+    modalVideo.src = src;
+    modal.classList.add("show");
+    modalVideo.play().catch(() => {});
+  };
+
+  const closeModal = () => {
+    modal.classList.remove("show");
+    modalVideo.pause();
+  };
+
+  triggers.forEach((trigger) => {
+    trigger.addEventListener("click", () => {
+      const video = trigger.querySelector("video");
+      if (video) openModal(video.currentSrc || video.src);
+    });
+  });
+
+  closeBtn.addEventListener("click", closeModal);
+  modal.addEventListener("click", (e) => {
+    if (e.target === modal) closeModal();
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeModal();
   });
 }
 
@@ -346,14 +549,20 @@ document.addEventListener("DOMContentLoaded", () => {
   initScrollSpy();
 
   const promises = [
-    loadTemplate("navbar-container", "resources/templates/navbar.html"),
+    loadTemplate("navbar-container", "resources/templates/navbar.html").then(
+      initResumeModal
+    ),
     loadTemplate("hero-container", "resources/templates/hero.html").then(() => {
       initHeroTyping();
     }),
+    loadTemplate("projects-container", "resources/templates/projects.html").then(() => {
+      renderProjects();
+      initProjectFilters();
+      initImageModal();
+      initProjectVideos();
+      initVideoModal();
+    }),
     loadTemplate("expertise-container", "resources/templates/expertise.html"),
-    loadTemplate("projects-container", "resources/templates/projects.html").then(
-      initProjectFilters
-    ),
     loadTemplate("about-container", "resources/templates/about.html").then(() => {
       initAboutCarousel();
     }),
