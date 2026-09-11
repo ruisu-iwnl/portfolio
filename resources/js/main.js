@@ -197,6 +197,7 @@ function renderProjectRow(project) {
             muted
             loop
             playsinline
+            webkit-playsinline
             preload="metadata"
           ></video>
         </button>`;
@@ -351,14 +352,17 @@ function initProjectVideos() {
   const videos = document.querySelectorAll(".project-row-video");
   if (!videos.length) return;
 
+  // iOS Safari/Arc are far more reliable about honoring the `autoplay`
+  // attribute on a muted video than a bare, gesture-less video.play() call —
+  // and merely flipping the `preload` property doesn't make the browser
+  // actually start fetching; only load() does. So the first time a video
+  // scrolls into view we set `autoplay`, force a load(), and only then
+  // call play() as a backup for the (rare) engine that still needs it.
   const attemptPlay = (video) => {
     video.muted = true;
-    if (video.readyState < 2) {
-      video.preload = "auto";
-      video.addEventListener("loadeddata", () => video.play().catch(() => {}), {
-        once: true,
-      });
-      return;
+    if (!video.hasAttribute("autoplay")) {
+      video.setAttribute("autoplay", "");
+      video.load();
     }
     video.play().catch(() => {});
   };
