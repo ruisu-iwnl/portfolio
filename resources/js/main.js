@@ -351,13 +351,25 @@ function initProjectVideos() {
   const videos = document.querySelectorAll(".project-row-video");
   if (!videos.length) return;
 
+  const attemptPlay = (video) => {
+    video.muted = true;
+    if (video.readyState < 2) {
+      video.preload = "auto";
+      video.addEventListener("loadeddata", () => video.play().catch(() => {}), {
+        once: true,
+      });
+      return;
+    }
+    video.play().catch(() => {});
+  };
+
   const observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
         const video = entry.target;
         const wrap = video.closest(".project-row-video-wrap");
         if (entry.isIntersecting) {
-          video.play().catch(() => {});
+          attemptPlay(video);
           wrap?.classList.add("in-view");
         } else {
           video.pause();
