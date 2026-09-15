@@ -7,7 +7,7 @@ const PROJECTS = [
   {
     category: "fullstack",
     categoryLabel: "Legacy PHP",
-    title: "PowerEnglish System",
+    title: "Enterprise Learning Ecosystem",
     media: { type: "video", src: "resources/videos/powerenglish.mp4" },
     description: `An ESL enrollment platform on a legacy PHP and MySQL codebase — students get homework and book video or phone classes, with teachers and admins working in their own separate systems.`,
     highlights: [
