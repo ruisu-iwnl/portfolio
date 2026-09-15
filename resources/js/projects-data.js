@@ -8,7 +8,7 @@ const PROJECTS = [
     category: "fullstack",
     categoryLabel: "Legacy PHP",
     title: "Enterprise Learning Ecosystem",
-    media: { type: "video", src: "resources/videos/powerenglish.mp4" },
+    media: { type: "video", src: "resources/videos/powerenglish.mp4", poster: "resources/img/powerenglish.png" },
     description: `An ESL enrollment platform on a legacy PHP and MySQL codebase — students get homework and book video or phone classes, with teachers and admins working in their own separate systems.`,
     highlights: [
       { label: "Teacher side", text: `Took it from an old legacy HTML design to a modern rebrand, and improved the flow of the whole system, not just the look.` },
@@ -26,7 +26,7 @@ const PROJECTS = [
     category: "fullstack",
     categoryLabel: "E-commerce",
     title: "Joulery Handcrafted Items",
-    media: { type: "video", src: "resources/videos/joulery.mp4" },
+    media: { type: "video", src: "resources/videos/joulery.mp4", poster: "resources/img/joulery_screenshot.png" },
     description: `An online store for handcrafted Filipino jewelry — customers browse the pieces, add them to a cart, and order online. Built with Next.js, React, and Tailwind CSS, with Framer Motion for the interface animations, Payload CMS for content, and PayMongo for secure, webhook-driven order processing.`,
     tech: ["Next.js", "React", "Tailwind", "Framer Motion", "Payload", "PayMongo"],
     links: [
@@ -38,7 +38,7 @@ const PROJECTS = [
     category: "fullstack",
     categoryLabel: "Full Stack",
     title: "Discord Multipurpose Bot",
-    media: { type: "video", src: "resources/videos/carrot.mp4" },
+    media: { type: "video", src: "resources/videos/carrot.mp4", poster: "resources/img/carrot.png" },
     description: `A Discord bot with a web dashboard for per-server setup, plus Carrot — a RAG-powered AI assistant that answers questions grounded in a server's own message history.`,
     tech: ["Next.js", "TypeScript", "Discord.js", "Upstash", "Gemini", "RAG", "Render"],
     links: [
@@ -50,7 +50,7 @@ const PROJECTS = [
     category: "fullstack",
     categoryLabel: "Full Stack",
     title: "Point-of-Sale System",
-    media: { type: "video", src: "resources/videos/pos.mp4" },
+    media: { type: "video", src: "resources/videos/pos.mp4", poster: "resources/img/pos.png" },
     description: `A cross-platform POS built with Flutter — runs on desktop, Android tablets, or phones, and integrates with receipt printers and cash registers. Works offline-first with local SQLite storage, syncing to a Neon Postgres database once back online. Handles product management, sales reports, receipt generation, and void/cancel/discount transactions.`,
     tech: ["Flutter", "Dart", "SQLite", "Neon"],
     links: [

@@ -194,6 +194,7 @@ function renderProjectRow(project) {
           <video
             class="project-row-thumb project-row-video"
             src="${media.src}"
+            ${media.poster ? `poster="${media.poster}"` : ""}
             muted
             loop
             playsinline
