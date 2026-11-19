@@ -24,6 +24,20 @@ const PROJECTS = [
   },
   {
     category: "fullstack",
+    categoryLabel: "Full Stack",
+    title: "HR Recruitment and Timekeeping Platform",
+    media: { type: "none" },
+    description: `An HR platform built for a small company: a public careers site where people apply and book interviews, a staff workspace for HR, and clock-in by selfie through a Telegram Mini App. It runs on Cloudflare, with Google Apps Script handling Drive, Gmail and Calendar.`,
+    highlights: [
+      { label: "Hiring", text: `Applicants use one-time links instead of accounts, and interview slots are backed by Google Calendar. Screening flags suspicious applications for a person to review and never rejects them automatically.` },
+      { label: "Timekeeping", text: `Staff clock in from a Telegram Mini App using the live camera only, stamped with server time. HR gets a shift roster board, an hours calculator, cut-off approval, and a monthly Google Sheet.` },
+      { label: "Privacy and phones", text: `The browser keeps private data in memory only, nothing stored on the device, and every staff screen works from a 360 px phone width.` },
+    ],
+    tech: ["Next.js", "React", "TypeScript", "Tailwind", "Cloudflare Pages", "D1", "Workers AI", "Google Apps Script", "Telegram"],
+    links: [],
+  },
+  {
+    category: "fullstack",
     categoryLabel: "E-commerce",
     title: "Joulery Handcrafted Items",
     media: { type: "video", src: "resources/videos/joulery.mp4", poster: "resources/img/joulery_screenshot.png" },
@@ -61,6 +75,31 @@ const PROJECTS = [
   {
     category: "fullstack",
     categoryLabel: "Full Stack",
+    title: "BrightSprout Classroom",
+    media: { type: "video", src: "resources/videos/bright-sprout.mp4", poster: "resources/img/bright-sprout.png" },
+    description: `A classroom reward garden MVP — teachers award "sun points" and each student's plant grows, alongside a focus timer, an optional noise meter that runs only in the browser, and a daily leaderboard. Built as a static site with vanilla HTML, CSS, and JavaScript, saved in localStorage and installable as a PWA.`,
+    highlights: [
+      { label: "Product", text: `A live sample classroom at /demo/ kept separate from the persistent classroom at /classroom/, with first-run setup, undo, JSON import/export, roster, and goals.` },
+      { label: "Site", text: `Marketing, pricing, about, support, privacy, and terms pages.` },
+    ],
+    tech: ["HTML", "CSS", "JavaScript", "PWA", "localStorage"],
+    links: [],
+  },
+  {
+    category: "fullstack",
+    categoryLabel: "Full Stack",
+    title: "G-RBLX",
+    media: { type: "video", src: "resources/videos/grblx.mp4", poster: "resources/img/grblx.png" },
+    description: `A static community site for the G-RBLX Roblox games brand, with a live active-players counter. A small AWS Lambda proxies the Roblox games API, which avoids browser CORS limits, and the page refreshes the count every 30 seconds.`,
+    tech: ["HTML", "Bootstrap", "JavaScript", "AWS Lambda", "CloudFront"],
+    links: [
+      { label: "GitHub", href: "https://github.com/ruisu-iwnl/grblx", icon: false },
+      { label: "Live", href: "https://grblx.com/", icon: true },
+    ],
+  },
+  {
+    category: "fullstack",
+    categoryLabel: "Full Stack",
     title: "Smart Lease Management",
     media: { type: "none" },
     description: `A comprehensive platform featuring auto-expiring leases, automated monthly rental reports, and real-time payment synchronization.`,
@@ -93,44 +132,6 @@ const PROJECTS = [
   },
   {
     category: "automation",
-    categoryLabel: "Automation",
-    title: "Email Sender",
-    media: { type: "none" },
-    description: `Bulk email automation for recruiting and large-scale group messaging tasks.`,
-    tech: ["Python", "SMTP"],
-    links: [
-      { label: "View", href: "https://github.com/ruisu-iwnl/email-sender", icon: true },
-    ],
-  },
-  {
-    category: "fullstack",
-    categoryLabel: "Full Stack",
-    title: "HR Recruitment and Timekeeping Platform",
-    media: { type: "none" },
-    description: `An HR platform built for a small company: a public careers site where people apply and book interviews, a staff workspace for HR, and clock-in by selfie through a Telegram Mini App. It runs on Cloudflare, with Google Apps Script handling Drive, Gmail and Calendar.`,
-    highlights: [
-      { label: "Hiring", text: `Applicants use one-time links instead of accounts, and interview slots are backed by Google Calendar. Screening flags suspicious applications for a person to review and never rejects them automatically.` },
-      { label: "Timekeeping", text: `Staff clock in from a Telegram Mini App using the live camera only, stamped with server time. HR gets a shift roster board, an hours calculator, cut-off approval, and a monthly Google Sheet.` },
-      { label: "Privacy and phones", text: `The browser keeps private data in memory only, nothing stored on the device, and every staff screen works from a 360 px phone width.` },
-    ],
-    tech: ["Next.js", "React", "TypeScript", "Tailwind", "Cloudflare Pages", "D1", "Workers AI", "Google Apps Script", "Telegram"],
-    links: [],
-  },
-  {
-    category: "fullstack",
-    categoryLabel: "Full Stack",
-    title: "BrightSprout Classroom",
-    media: { type: "video", src: "resources/videos/bright-sprout.mp4", poster: "resources/img/bright-sprout.png" },
-    description: `A classroom reward garden MVP — teachers award "sun points" and each student's plant grows, alongside a focus timer, an optional noise meter that runs only in the browser, and a daily leaderboard. Built as a static site with vanilla HTML, CSS, and JavaScript, saved in localStorage and installable as a PWA.`,
-    highlights: [
-      { label: "Product", text: `A live sample classroom at /demo/ kept separate from the persistent classroom at /classroom/, with first-run setup, undo, JSON import/export, roster, and goals.` },
-      { label: "Site", text: `Marketing, pricing, about, support, privacy, and terms pages.` },
-    ],
-    tech: ["HTML", "CSS", "JavaScript", "PWA", "localStorage"],
-    links: [],
-  },
-  {
-    category: "automation",
     categoryLabel: "AI Agents",
     title: "AI Agent Agency",
     media: { type: "none" },
@@ -157,6 +158,17 @@ const PROJECTS = [
     ],
     tech: ["Python", "faster-whisper", "WASAPI", "Windows Task Scheduler", "Obsidian"],
     links: [],
+  },
+  {
+    category: "automation",
+    categoryLabel: "Automation",
+    title: "Email Sender",
+    media: { type: "none" },
+    description: `Bulk email automation for recruiting and large-scale group messaging tasks.`,
+    tech: ["Python", "SMTP"],
+    links: [
+      { label: "View", href: "https://github.com/ruisu-iwnl/email-sender", icon: true },
+    ],
   },
   {
     category: "games",
@@ -186,17 +198,5 @@ const PROJECTS = [
     ],
     tech: ["Node.js", "PowerShell", "RCON", "Cloudflare Workers", "R2", "Forge"],
     links: [],
-  },
-  {
-    category: "fullstack",
-    categoryLabel: "Full Stack",
-    title: "G-RBLX",
-    media: { type: "video", src: "resources/videos/grblx.mp4", poster: "resources/img/grblx.png" },
-    description: `A static community site for the G-RBLX Roblox games brand, with a live active-players counter. A small AWS Lambda proxies the Roblox games API, which avoids browser CORS limits, and the page refreshes the count every 30 seconds.`,
-    tech: ["HTML", "Bootstrap", "JavaScript", "AWS Lambda", "CloudFront"],
-    links: [
-      { label: "GitHub", href: "https://github.com/ruisu-iwnl/grblx", icon: false },
-      { label: "Live", href: "https://grblx.com/", icon: true },
-    ],
   },
 ];
