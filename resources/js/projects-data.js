@@ -26,7 +26,7 @@ const PROJECTS = [
     category: "fullstack",
     categoryLabel: "Full Stack",
     title: "HR Recruitment and Timekeeping Platform",
-    media: { type: "none" },
+    media: { type: "video", src: "resources/videos/hr-platform.mp4", poster: "resources/img/hr-platform.png" },
     description: `An HR platform built for a small company: a public careers site where people apply and book interviews, a staff workspace for HR, and clock-in by selfie through a Telegram Mini App. It runs on Cloudflare, with Google Apps Script handling Drive, Gmail and Calendar.`,
     highlights: [
       { label: "Hiring", text: `Applicants use one-time links instead of accounts, and interview slots are backed by Google Calendar. Screening flags suspicious applications for a person to review and never rejects them automatically.` },
@@ -134,7 +134,7 @@ const PROJECTS = [
     category: "automation",
     categoryLabel: "AI Agents",
     title: "AI Agent Agency",
-    media: { type: "none" },
+    media: { type: "image", src: "resources/img/agent-agency.png", alt: "Org chart of the agent agency: 15 agents in four departments, Operations, Web Ops, Content Ops and Personal, each with its pinned model and preloaded skills" },
     description: `A personal setup of 15 Claude Code agents grouped into departments (web, content, operations and personal), plus a library of 25 reusable skills. Each department has a manager that hands work to specialists, so one request can run from research to build to test.`,
     highlights: [
       { label: "Hand-offs", text: `An operations manager routes each task to the right department manager, who dispatches its specialists: strategist, designer, QA, auditor, ops and janitor for web; scout, editor, critic and social for content.` },
@@ -149,7 +149,7 @@ const PROJECTS = [
     category: "automation",
     categoryLabel: "Automation",
     title: "Meeting Notetaker and Video Transcriber",
-    media: { type: "none" },
+    media: { type: "video", src: "resources/videos/notetaker.mp4", poster: "resources/img/notetaker.png" },
     description: `Two personal Windows tools that turn speech into text on my own PC. One records a Zoom call and writes a Markdown note with a summary and action items; the other transcribes video files or whatever the PC is playing.`,
     highlights: [
       { label: "Notetaker", text: `Starts when a Zoom meeting opens, records the microphone and the PC sound through WASAPI, then transcribes with faster-whisper on the CPU. Windows Task Scheduler launches it automatically, and a toast alert links to the finished note in Obsidian.` },
@@ -174,7 +174,7 @@ const PROJECTS = [
     category: "games",
     categoryLabel: "Roblox Game",
     title: "Leaf",
-    media: { type: "none" },
+    media: { type: "image", src: "resources/img/leaf.png", alt: "Leaf Roblox game in code: the eight-state round loop, five maps, and the project's own 24 badge and 3 game pass icons" },
     description: `A Roblox game written in Luau and synced with Rojo, where players sweep up leaves in timed rounds, vote on the next map, and earn Coins to spend on upgrades and cosmetics. The economy, rounds, and purchases run server-side.`,
     highlights: [
       { label: "Content", text: `Several maps, tool upgrades, cosmetics, quests, perks, and a badge system with more than 20 badges.` },
@@ -190,7 +190,7 @@ const PROJECTS = [
     category: "games",
     categoryLabel: "Game Server",
     title: "Modded Minecraft Server Kit",
-    media: { type: "none" },
+    media: { type: "video", src: "resources/videos/minecraft-kit.mp4", poster: "resources/img/minecraft-kit.png" },
     description: `A self-hosted toolkit for running a modded Minecraft server from one PC — a one-click Windows installer, a dependency-free Node.js control panel that talks to the server over RCON and sends Discord webhook alerts, and a download site that serves the big files from a Cloudflare Worker and R2.`,
     highlights: [
       { label: "Modpacks", text: `Switch between several Forge modpacks and a Fabric vanilla setup with voice chat.` },
